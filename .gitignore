@@ -1,2 +1,4 @@
 trained_bert.pth
 finetuned_bert/model.safetensors
+my_pretrained_bert
+pretrained_model

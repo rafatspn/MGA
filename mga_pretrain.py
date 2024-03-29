@@ -6,19 +6,38 @@ import json
 import torch
 from itertools import chain
 from datasets import list_datasets
+import pandas as pd
 #from transformers import BertModel, BertConfig
 
-dataset_list = list_datasets()
+text_inp_irs = './text_in_irs'
+gen_irs = './output_irs'
+text_gen_irs = './text_out_irs'
+embedding_path='./embeddings'
 
-print(len(dataset_list))
-#print(', '.join(dataset for dataset in dataset_list))
-print(dataset_list[:9])
 
-dataset = load_dataset('cc_news',split='train')
+#########Dataset preparation online start ###########
 
-print(dataset[2])
+# dataset_list = list_datasets()
 
-d = dataset.train_test_split(train_size=0.01, test_size=0.01)
+# print(len(dataset_list))
+# print(', '.join(dataset for dataset in dataset_list))
+# print(dataset_list[:9])
+
+# dataset = load_dataset('cc_news',split='train')
+
+#########Dataset preparation online end ###########
+
+text_files = [f for f in os.listdir(text_inp_irs) if f.endswith('.txt')]
+
+texts = []
+for file_name in text_files:
+    with open(os.path.join(text_inp_irs, file_name), 'r') as file:
+        text = file.read()
+        texts.append({'text': text})
+
+dataset = Dataset.from_pandas(pd.DataFrame(data=texts))
+
+d = dataset.train_test_split(train_size=1, test_size=1)
 d['train'], d['test']
 
 def dataset_to_text(dataset, output_filename='data.txt'):
@@ -160,3 +179,5 @@ trainer = Trainer(
 )
 
 trainer.train()
+
+trainer.save_model('pretrained_model')
