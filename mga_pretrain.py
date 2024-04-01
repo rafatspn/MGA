@@ -10,9 +10,6 @@ import pandas as pd
 #from transformers import BertModel, BertConfig
 
 text_inp_irs = './text_in_irs'
-gen_irs = './output_irs'
-text_gen_irs = './text_out_irs'
-embedding_path='./embeddings'
 
 
 #########Dataset preparation online start ###########
