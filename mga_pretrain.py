@@ -34,7 +34,7 @@ for file_name in text_files:
 
 dataset = Dataset.from_pandas(pd.DataFrame(data=texts))
 
-d = dataset.train_test_split(train_size=1, test_size=1)
+d = dataset.train_test_split(test_size=0.1)
 d['train'], d['test']
 
 def dataset_to_text(dataset, output_filename='data.txt'):
